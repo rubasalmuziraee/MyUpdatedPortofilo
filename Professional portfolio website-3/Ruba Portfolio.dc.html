@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#09090b;font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#a78bfa;text-decoration:none}a:hover{color:#c4b5fd}
+a:focus-visible{outline:2px solid #8b5cf6;outline-offset:3px;border-radius:6px}
+::selection{background:rgba(139,92,246,.4);color:#fff}
+@keyframes glowPulse{0%,100%{opacity:.55}50%{opacity:.9}}
+@keyframes aurora1{0%,100%{transform:translate(-50%,0) rotate(0deg) scale(1)}33%{transform:translate(-44%,30px) rotate(8deg) scale(1.08)}66%{transform:translate(-56%,-20px) rotate(-6deg) scale(.96)}}
+@keyframes aurora2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-60px,40px) scale(1.12)}}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes bounceCue{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(6px);opacity:1}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+@keyframes chatIn{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes dotPulse{0%,80%,100%{opacity:.25}40%{opacity:1}}
+</style>
+<script src="cv-data.js"></script>
+</helmet>
+
+<!-- mouse spotlight -->
+<div data-spotlight aria-hidden="true" style="position:fixed;inset:0;pointer-events:none;z-index:1;background:radial-gradient(560px circle at 50% 30%, rgba(139,92,246,.07), transparent 70%)"></div>
+
+<!-- ============ NAV ============ -->
+<div style="position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:16px 48px;background:rgba(9,9,11,.72);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06)">
+  <a href="#top" style="font:600 13px 'JetBrains Mono',monospace;color:#fff;letter-spacing:.06em">RUBA ALMUZIRAEE<span style="color:#8b5cf6">.</span></a>
+  <div style="display:flex;gap:26px;align-items:center;font:500 13px Inter,sans-serif;flex-wrap:wrap">
+    <a href="#about" style="color:rgba(255,255,255,.65)" style-hover="color:#fff">About</a>
+    <a href="#experience" style="color:rgba(255,255,255,.65)" style-hover="color:#fff">Journey</a>
+    <a href="#projects" style="color:rgba(255,255,255,.65)" style-hover="color:#fff">Projects</a>
+    <a href="#ai" style="color:rgba(255,255,255,.65)" style-hover="color:#fff">AI Engineering</a>
+    <a href="#skills" style="color:rgba(255,255,255,.65)" style-hover="color:#fff">Skills</a>
+    <a href="#certifications" style="color:rgba(255,255,255,.65)" style-hover="color:#fff">Credentials</a>
+    <a href="#contact" style="color:#09090b;background:#fff;border-radius:8px;padding:8px 18px;font-weight:600;transition:background .2s ease" style-hover="background:#ddd0ff;color:#09090b">Contact</a>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<div id="top" data-screen-label="Hero" style="position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:24px;padding:130px 48px 80px;overflow:hidden;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:64px 64px">
+  <div aria-hidden="true" style="position:absolute;top:-240px;left:50%;width:980px;height:680px;background:radial-gradient(ellipse at center,rgba(139,92,246,.26) 0%,rgba(139,92,246,.07) 45%,transparent 70%);animation:aurora1 14s ease-in-out infinite;pointer-events:none"></div>
+  <div aria-hidden="true" style="position:absolute;bottom:-180px;right:-140px;width:620px;height:480px;background:radial-gradient(ellipse at center,rgba(59,130,246,.1) 0%,transparent 65%);animation:aurora2 18s ease-in-out infinite;pointer-events:none"></div>
+  <div aria-hidden="true" style="position:absolute;top:22%;left:14%;width:5px;height:5px;border-radius:50%;background:rgba(167,139,250,.35);animation:floatY 9s ease-in-out infinite;pointer-events:none"></div>
+  <div aria-hidden="true" style="position:absolute;top:60%;right:16%;width:4px;height:4px;border-radius:50%;background:rgba(167,139,250,.3);animation:floatY 11s ease-in-out 1.5s infinite;pointer-events:none"></div>
+
+  <sc-if value="{{ showAvailability }}" hint-placeholder-val="{{ true }}">
+    <div style="position:relative;display:flex;align-items:center;gap:8px;font:500 11px 'JetBrains Mono',monospace;color:#c4b5fd;border:1px solid rgba(139,92,246,.35);background:rgba(139,92,246,.1);border-radius:999px;padding:7px 15px;letter-spacing:.08em">
+      <span style="width:6px;height:6px;border-radius:50%;background:#8b5cf6;display:inline-block"></span>
+      AVAILABLE FOR OPPORTUNITIES
+    </div>
+  </sc-if>
+  <h1 style="position:relative;margin:0;font:700 60px/1.1 'Space Grotesk',sans-serif;color:#fff;letter-spacing:-.02em;max-width:860px;text-wrap:balance">Building AI experiences that solve <span style="background:linear-gradient(90deg,#a78bfa,#8b5cf6 60%,#7c3aed);-webkit-background-clip:text;background-clip:text;color:transparent">real business problems</span>.</h1>
+  <div style="position:relative;font:400 15px 'JetBrains Mono',monospace;color:rgba(255,255,255,.55);letter-spacing:.02em">Agentic AI Engineer · Software Developer</div>
+  <div style="position:relative;display:flex;gap:14px;margin-top:12px;flex-wrap:wrap;justify-content:center">
+    <a href="#projects" data-magnetic style="display:inline-block;font:600 14px Inter,sans-serif;color:#09090b;background:#fff;border-radius:10px;padding:14px 30px;box-shadow:0 0 28px rgba(139,92,246,.35);transition:transform .18s ease,box-shadow .3s ease" style-hover="box-shadow:0 0 44px rgba(139,92,246,.55);color:#09090b">View Projects</a>
+    <a href="https://drive.google.com/file/d/1yfpOpGz1iNm-gSIYha4OjIbL-jUnwBmi/view?usp=share_link" target="_blank" rel="noopener" data-magnetic style="display:inline-block;font:600 14px Inter,sans-serif;color:#fff;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:14px 30px;backdrop-filter:blur(8px);transition:transform .18s ease,border-color .3s ease" style-hover="border-color:rgba(139,92,246,.6);color:#fff">Download Resume</a>
+  </div>
+  <div style="position:relative;display:flex;gap:56px;margin-top:44px">
+    <div style="display:flex;flex-direction:column;gap:4px;align-items:center">
+      <div style="font:700 30px 'Space Grotesk',sans-serif;color:#fff"><span data-counter="4.24" data-decimals="2">0</span></div>
+      <div style="font:500 11px 'JetBrains Mono',monospace;color:rgba(255,255,255,.45);letter-spacing:.1em">GPA / 5.0</div>
+    </div>
+    <div style="width:1px;background:rgba(255,255,255,.1)"></div>
+    <div style="display:flex;flex-direction:column;gap:4px;align-items:center">
+      <div style="font:700 30px 'Space Grotesk',sans-serif;color:#fff"><span data-counter="8">0</span></div>
+      <div style="font:500 11px 'JetBrains Mono',monospace;color:rgba(255,255,255,.45);letter-spacing:.1em">AGENTS ORCHESTRATED</div>
+    </div>
+    <div style="width:1px;background:rgba(255,255,255,.1)"></div>
+    <div style="display:flex;flex-direction:column;gap:4px;align-items:center">
+      <div style="font:700 30px 'Space Grotesk',sans-serif;color:#fff"><span data-counter="13">0</span>+</div>
+      <div style="font:500 11px 'JetBrains Mono',monospace;color:rgba(255,255,255,.45);letter-spacing:.1em">TECHNOLOGIES</div>
+    </div>
+  </div>
+  <div aria-hidden="true" style="position:absolute;bottom:28px;left:50%;transform:translateX(-50%);font:400 18px Inter,sans-serif;color:rgba(255,255,255,.5);animation:bounceCue 2.2s ease-in-out infinite">↓</div>
+</div>
+
+<!-- ============ ABOUT / WHAT I BUILD ============ -->
+<div id="about" data-screen-label="About" data-reveal style="max-width:1080px;margin:0 auto;padding:110px 48px 60px;scroll-margin-top:70px">
+  <div style="font:600 11px 'JetBrains Mono',monospace;color:#8b5cf6;letter-spacing:.16em;margin-bottom:14px">01 — WHO I AM</div>
+  <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:56px;align-items:start">
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <h2 style="margin:0;font:700 40px/1.15 'Space Grotesk',sans-serif;color:#fff;letter-spacing:-.02em">Engineer who's carried a sales quota.</h2>
+      <p style="margin:0;font:400 15.5px/1.75 Inter,sans-serif;color:rgba(255,255,255,.6)">Most AI engineers have never sat across from a customer. I have — financing SMEs at Alrajhi Bank taught me exactly where business processes bleed time. Now I build the agentic systems that fix them.</p>
+      <p style="margin:0;font:400 15.5px/1.75 Inter,sans-serif;color:rgba(255,255,255,.6)">IT graduate with a 4.24 GPA and full-stack foundations, trained in agentic AI at the Saudi Digital Academy — designing multi-agent systems, RAG pipelines, and AI automation workflows on top of production-grade web engineering.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:8px">
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:6px">
+          <div style="font:600 14px 'Space Grotesk',sans-serif;color:#fff">What I build</div>
+          <div style="font:400 12.5px/1.6 Inter,sans-serif;color:rgba(255,255,255,.55)">Multi-agent systems, RAG pipelines, full-stack AI products</div>
+        </div>
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:6px">
+          <div style="font:600 14px 'Space Grotesk',sans-serif;color:#fff">How I work</div>
+          <div style="font:400 12.5px/1.6 Inter,sans-serif;color:rgba(255,255,255,.55)">Business problem first, architecture second, code third</div>
+        </div>
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:6px">
+          <div style="font:600 14px 'Space Grotesk',sans-serif;color:#fff">Why it matters</div>
+          <div style="font:400 12.5px/1.6 Inter,sans-serif;color:rgba(255,255,255,.55)">AI that removes real busywork, not demos that impress once</div>
+        </div>
+      </div>
+    </div>
+    <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:28px;backdrop-filter:blur(12px);display:flex;flex-direction:column;gap:18px">
+      <div style="display:flex;justify-content:space-between;gap:12px"><span style="font:500 11px 'JetBrains Mono',monospace;color:rgba(255,255,255,.4);letter-spacing:.1em">LOCATION</span><span style="font:500 13px Inter,sans-serif;color:#fff">Riyadh, Saudi Arabia</span></div>
+      <div style="height:1px;background:rgba(255,255,255,.07)"></div>
+      <div style="display:flex;justify-content:space-between;gap:12px"><span style="font:500 11px 'JetBrains Mono',monospace;color:rgba(255,255,255,.4);letter-spacing:.1em">DEGREE</span><span style="font:500 13px Inter,sans-serif;color:#fff;text-align:right">B.Sc. IT — Qassim University</span></div>
+      <div style="height:1px;background:rgba(255,255,255,.07)"></div>
+      <div style="display:flex;justify-content:space-between;gap:12px"><span style="font:500 11px 'JetBrains Mono',monospace;color:rgba(255,255,255,.4);letter-spacing:.1em">FOCUS</span><span style="font:500 13px Inter,sans-serif;color:#fff">Agentic AI · Full-Stack</span></div>
+      <div style="height:1px;background:rgba(255,255,255,.07)"></div>
+      <div style="display:flex;justify-content:space-between;gap:12px"><span style="font:500 11px 'JetBrains Mono',monospace;color:rgba(255,255,255,.4);letter-spacing:.1em">LANGUAGES</span><span style="font:500 13px Inter,sans-serif;color:#fff">Arabic · English</span></div>
+      <div style="height:1px;background:rgba(255,255,255,.07)"></div>
+      <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><span style="font:500 11px 'JetBrains Mono',monospace;color:rgba(255,255,255,.4);letter-spacing:.1em">EMAIL</span><a href="mailto:rubasalmuziraee@gmail.com" style="font:500 13px Inter,sans-serif;color:#c4b5fd">rubasalmuziraee@gmail.com</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ EXPERIENCE / JOURNEY ============ -->
+<div id="experience" data-screen-label="Journey" data-reveal style="max-width:1080px;margin:0 auto;padding:80px 48px 60px;scroll-margin-top:70px">
+  <div style="font:600 11px 'JetBrains Mono',monospace;color:#8b5cf6;letter-spacing:.16em;margin-bottom:14px">02 — THE JOURNEY</div>
+  <h2 style="margin:0 0 44px;font:700 40px/1.15 'Space Grotesk',sans-serif;color:#fff;letter-spacing:-.02em">From classroom to production AI.</h2>
+  <div style="display:flex;flex-direction:column">
+    <sc-for list="{{ experience }}" as="job" hint-placeholder-count="5">
+      <div style="display:grid;grid-template-columns:150px 40px 1fr">
+        <div style="font:500 12px 'JetBrains Mono',monospace;color:rgba(255,255,255,.45);padding-top:26px;text-align:right;padding-right:8px">{{ job.period }}</div>
+        <div style="display:flex;flex-direction:column;align-items:center">
+          <div style="width:1px;flex:none;height:26px;background:rgba(255,255,255,.1)"></div>
+          <div style="width:11px;height:11px;flex:none;border-radius:50%;background:#09090b;border:2px solid #8b5cf6;box-shadow:0 0 12px rgba(139,92,246,.5)"></div>
+          <div style="width:1px;flex:1;background:rgba(255,255,255,.1)"></div>
+        </div>
+        <div style="padding:16px 0 32px 20px">
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:24px 28px;backdrop-filter:blur(12px);transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease" style-hover="border-color:rgba(139,92,246,.4);box-shadow:0 12px 36px rgba(0,0,0,.45);transform:translateY(-3px)">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap">
+              <div style="font:600 18px 'Space Grotesk',sans-serif;color:#fff">{{ job.role }}</div>
+              <div style="font:500 11px 'JetBrains Mono',monospace;color:#c4b5fd;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.25);border-radius:6px;padding:3px 9px">{{ job.type }}</div>
+            </div>
+            <div style="font:500 13px 'JetBrains Mono',monospace;color:rgba(255,255,255,.5);margin-top:5px">{{ job.company }}</div>
+            <p style="margin:12px 0 0;font:400 14px/1.7 Inter,sans-serif;color:rgba(255,255,255,.6)">{{ job.summary }}</p>
+          </div>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+</div>
+
+<!-- ============ PROJECTS ============ -->
+<div id="projects" data-screen-label="Projects" data-reveal style="max-width:1080px;margin:0 auto;padding:80px 48px 60px;scroll-margin-top:70px">
+  <div style="font:600 11px 'JetBrains Mono',monospace;color:#8b5cf6;letter-spacing:.16em;margin-bottom:14px">03 — PROOF OF WORK</div>
+  <h2 style="margin:0 0 12px;font:700 40px/1.15 'Space Grotesk',sans-serif;color:#fff;letter-spacing:-.02em">Projects that solve real problems.</h2>
+  <p style="margin:0 0 44px;font:400 15px/1.7 Inter,sans-serif;color:rgba(255,255,255,.55);max-width:560px">Each one is a story: a problem, an architecture, and a measurable outcome.</p>
+  <div style="display:flex;flex-direction:column;gap:28px">
+    <sc-for list="{{ projects }}" as="p" hint-placeholder-count="4">
+      <div style="display:grid;grid-template-columns:340px 1fr;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:20px;overflow:hidden;backdrop-filter:blur(12px);transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease" style-hover="border-color:rgba(139,92,246,.45);box-shadow:0 16px 48px rgba(0,0,0,.5);transform:translateY(-4px)">
+        <div style="position:relative;min-height:260px">
+          <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ p.slotId }}" shape="rect" src="{{ p.image }}" placeholder="{{ p.placeholder }}" hint-size="340px,260px" style="position:absolute;inset:0"></x-import>
+        </div>
+        <div style="padding:30px 34px;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px">
+            <div style="font:600 22px 'Space Grotesk',sans-serif;color:#fff;letter-spacing:-.01em">{{ p.title }}</div>
+            <div style="font:500 11px 'JetBrains Mono',monospace;color:rgba(255,255,255,.4)">{{ p.year }}</div>
+          </div>
+          <div style="display:grid;grid-template-columns:78px 1fr;gap:6px 14px;align-items:baseline">
+            <span style="font:600 10.5px 'JetBrains Mono',monospace;color:#8b5cf6;letter-spacing:.1em">PROBLEM</span>
+            <span style="font:400 13px/1.6 Inter,sans-serif;color:rgba(255,255,255,.6)">{{ p.problem }}</span>
+            <span style="font:600 10.5px 'JetBrains Mono',monospace;color:#8b5cf6;letter-spacing:.1em">SOLUTION</span>
+            <span style="font:400 13px/1.6 Inter,sans-serif;color:rgba(255,255,255,.6)">{{ p.solution }}</span>
+            <span style="font:600 10.5px 'JetBrains Mono',monospace;color:#8b5cf6;letter-spacing:.1em">IMPACT</span>
+            <span style="font:400 13px/1.6 Inter,sans-serif;color:rgba(255,255,255,.6)">{{ p.impact }}</span>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <sc-for list="{{ p.tech }}" as="t" hint-placeholder-count="3">
+              <span style="font:500 10.5px 'JetBrains Mono',monospace;color:#c4b5fd;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.25);border-radius:6px;padding:4px 10px">{{ t }}</span>
+            </sc-for>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:auto;padding-top:8px">
+            <a href="{{ p.github }}" target="_blank" rel="noopener" style="font:600 12.5px Inter,sans-serif;color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:9px 18px;transition:border-color .2s ease" style-hover="border-color:rgba(139,92,246,.6);color:#fff">GitHub ↗</a>
+            <a href="{{ p.page }}" style="font:600 12.5px Inter,sans-serif;color:#09090b;background:#8b5cf6;border-radius:8px;padding:9px 18px;transition:background .2s ease" style-hover="background:#a78bfa;color:#09090b">Case Study →</a>
+          </div>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+</div>
+
+<!-- ============ AI ENGINEERING ============ -->
+<div id="ai" data-screen-label="AI Engineering" data-reveal style="position:relative;padding:100px 48px;margin:60px 0;overflow:hidden;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);scroll-margin-top:70px">
+  <div aria-hidden="true" style="position:absolute;top:-160px;right:-100px;width:600px;height:460px;background:radial-gradient(ellipse at center,rgba(139,92,246,.16) 0%,transparent 65%);pointer-events:none"></div>
+  <div style="position:relative;max-width:1080px;margin:0 auto">
+    <div style="font:600 11px 'JetBrains Mono',monospace;color:#8b5cf6;letter-spacing:.16em;margin-bottom:14px">04 — AI ENGINEERING</div>
+    <h2 style="margin:0 0 12px;font:700 40px/1.15 'Space Grotesk',sans-serif;color:#fff;letter-spacing:-.02em">Modern AI systems, end to end.</h2>
+    <p style="margin:0 0 44px;font:400 15px/1.7 Inter,sans-serif;color:rgba(255,255,255,.55);max-width:560px">Trained at the Saudi Digital Academy's Agentic AI bootcamp — building and deploying production AI applications with LLMs and modern agent frameworks.</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px">
+      <sc-for list="{{ aiSkills }}" as="s" hint-placeholder-count="9">
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:24px;backdrop-filter:blur(12px);display:flex;flex-direction:column;gap:9px;transition:transform .25s ease,border-color .25s ease" style-hover="border-color:rgba(139,92,246,.45);transform:translateY(-3px)">
+          <div style="font:600 12px 'JetBrains Mono',monospace;color:#8b5cf6;letter-spacing:.06em">{{ s.num }}</div>
+          <div style="font:600 16.5px 'Space Grotesk',sans-serif;color:#fff">{{ s.title }}</div>
+          <div style="font:400 13px/1.65 Inter,sans-serif;color:rgba(255,255,255,.55)">{{ s.desc }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SKILLS ============ -->
+<div id="skills" data-screen-label="Skills" data-reveal style="max-width:1080px;margin:0 auto;padding:40px 48px 60px;scroll-margin-top:70px">
+  <div style="font:600 11px 'JetBrains Mono',monospace;color:#8b5cf6;letter-spacing:.16em;margin-bottom:14px">05 — THE STACK</div>
+  <h2 style="margin:0 0 36px;font:700 40px/1.15 'Space Grotesk',sans-serif;color:#fff;letter-spacing:-.02em">Tools of the trade.</h2>
+  <div style="display:flex;flex-direction:column;gap:26px">
+    <sc-for list="{{ skillGroups }}" as="g" hint-placeholder-count="5">
+      <div style="display:grid;grid-template-columns:130px 1fr;gap:18px;align-items:baseline">
+        <div style="font:600 11px 'JetBrains Mono',monospace;color:rgba(255,255,255,.45);letter-spacing:.14em">{{ g.label }}</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <sc-for list="{{ g.items }}" as="t" hint-placeholder-count="4">
+            <span style="font:500 13px 'JetBrains Mono',monospace;color:rgba(255,255,255,.85);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.11);border-radius:999px;padding:9px 19px;transition:border-color .2s ease,color .2s ease,transform .2s ease" style-hover="border-color:rgba(139,92,246,.6);color:#c4b5fd;transform:translateY(-2px)">{{ t }}</span>
+          </sc-for>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+</div>
+
+<!-- ============ CERTIFICATIONS ============ -->
+<div id="certifications" data-screen-label="Credentials" data-reveal style="max-width:1080px;margin:0 auto;padding:70px 48px 60px;scroll-margin-top:70px">
+  <div style="font:600 11px 'JetBrains Mono',monospace;color:#8b5cf6;letter-spacing:.16em;margin-bottom:14px">06 — CREDENTIALS</div>
+  <h2 style="margin:0 0 36px;font:700 40px/1.15 'Space Grotesk',sans-serif;color:#fff;letter-spacing:-.02em">Education &amp; certifications.</h2>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:18px">
+    <sc-for list="{{ credentials }}" as="c" hint-placeholder-count="6">
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:22px 26px;backdrop-filter:blur(12px);display:flex;justify-content:space-between;gap:18px;align-items:baseline;transition:border-color .25s ease,transform .25s ease" style-hover="border-color:rgba(139,92,246,.45);transform:translateY(-2px)">
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <div style="font:600 15px 'Space Grotesk',sans-serif;color:#fff">{{ c.title }}</div>
+          <div style="font:500 12px 'JetBrains Mono',monospace;color:rgba(255,255,255,.45)">{{ c.org }}</div>
+        </div>
+        <div style="font:500 11px 'JetBrains Mono',monospace;color:#c4b5fd;flex:none">{{ c.year }}</div>
+      </div>
+    </sc-for>
+  </div>
+</div>
+
+<!-- ============ CONTACT ============ -->
+<div id="contact" data-screen-label="Contact" data-reveal style="position:relative;max-width:1080px;margin:0 auto;padding:90px 48px 100px;scroll-margin-top:70px">
+  <div style="position:relative;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:26px;padding:70px 60px;backdrop-filter:blur(16px);overflow:hidden;text-align:center;display:flex;flex-direction:column;align-items:center;gap:22px">
+    <div aria-hidden="true" style="position:absolute;top:-180px;left:50%;transform:translateX(-50%);width:640px;height:400px;background:radial-gradient(ellipse at center,rgba(139,92,246,.22) 0%,transparent 65%);pointer-events:none"></div>
+    <div style="position:relative;font:600 11px 'JetBrains Mono',monospace;color:#8b5cf6;letter-spacing:.16em">07 — LET'S WORK TOGETHER</div>
+    <h2 style="position:relative;margin:0;font:700 44px/1.15 'Space Grotesk',sans-serif;color:#fff;letter-spacing:-.02em;max-width:560px;text-wrap:balance">Let's build something intelligent together.</h2>
+    <p style="position:relative;margin:0;font:400 15px/1.7 Inter,sans-serif;color:rgba(255,255,255,.55);max-width:460px">Open to full-time AI engineering and software development roles — remote or in Riyadh.</p>
+    <div style="position:relative;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:10px">
+      <a href="mailto:rubasalmuziraee@gmail.com" data-magnetic style="display:inline-block;font:600 13.5px Inter,sans-serif;color:#09090b;background:#fff;border-radius:10px;padding:13px 26px;box-shadow:0 0 24px rgba(139,92,246,.3);transition:transform .18s ease" style-hover="color:#09090b">Email Me</a>
+      <a href="{{ linkedinUrl }}" target="_blank" rel="noopener" style="font:600 13.5px Inter,sans-serif;color:#fff;border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:13px 26px;transition:border-color .2s ease" style-hover="border-color:rgba(139,92,246,.6);color:#fff">LinkedIn ↗</a>
+      <a href="https://github.com/rubasalmuziraee" target="_blank" rel="noopener" style="font:600 13.5px Inter,sans-serif;color:#fff;border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:13px 26px;transition:border-color .2s ease" style-hover="border-color:rgba(139,92,246,.6);color:#fff">GitHub ↗</a>
+      <a href="https://drive.google.com/file/d/1yfpOpGz1iNm-gSIYha4OjIbL-jUnwBmi/view?usp=share_link" target="_blank" rel="noopener" style="font:600 13.5px Inter,sans-serif;color:#fff;border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:13px 26px;transition:border-color .2s ease" style-hover="border-color:rgba(139,92,246,.6);color:#fff">Resume ↓</a>
+    </div>
+    <div style="position:relative;font:400 12px 'JetBrains Mono',monospace;color:rgba(255,255,255,.35)">rubasalmuziraee@gmail.com · +966 53 539 5490</div>
+  </div>
+</div>
+
+<!-- ============ AI ASSISTANT ============ -->
+<sc-if value="{{ chatOpen }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="AI Assistant" style="position:fixed;bottom:96px;right:28px;z-index:60;width:380px;max-width:calc(100vw - 56px);height:520px;max-height:calc(100vh - 140px);display:flex;flex-direction:column;background:rgba(17,17,21,.92);border:1px solid rgba(139,92,246,.3);border-radius:20px;backdrop-filter:blur(20px);box-shadow:0 24px 64px rgba(0,0,0,.6),0 0 40px rgba(139,92,246,.12);overflow:hidden;animation:chatIn .25s ease">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid rgba(255,255,255,.07);flex:none">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="width:8px;height:8px;border-radius:50%;background:#8b5cf6;box-shadow:0 0 10px rgba(139,92,246,.8)"></span>
+        <span style="font:600 13px 'Space Grotesk',sans-serif;color:#fff">Ask about Ruba</span>
+      </div>
+      <button onClick="{{ toggleChat }}" aria-label="Close chat" style="background:none;border:none;cursor:pointer;color:rgba(255,255,255,.5);font:400 18px Inter,sans-serif;padding:4px 8px">✕</button>
+    </div>
+    <div data-chat-scroll style="flex:1;overflow-y:auto;padding:18px 18px 8px;display:flex;flex-direction:column;gap:12px">
+      <sc-for list="{{ chatMessages }}" as="m" hint-placeholder-count="1">
+        <div style="display:flex" data-chat-role="{{ m.role }}" style-hover="">
+          <div style="{{ m.bubbleStyle }}">{{ m.text }}</div>
+        </div>
+      </sc-for>
+      <sc-if value="{{ chatThinking }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;gap:5px;padding:10px 14px;align-self:flex-start">
+          <span style="width:6px;height:6px;border-radius:50%;background:#a78bfa;animation:dotPulse 1.2s infinite"></span>
+          <span style="width:6px;height:6px;border-radius:50%;background:#a78bfa;animation:dotPulse 1.2s .2s infinite"></span>
+          <span style="width:6px;height:6px;border-radius:50%;background:#a78bfa;animation:dotPulse 1.2s .4s infinite"></span>
+        </div>
+      </sc-if>
+    </div>
+    <sc-if value="{{ showSuggestions }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;padding:0 18px 10px;flex:none">
+        <button onClick="{{ askSuggestion1 }}" style="font:500 11px 'JetBrains Mono',monospace;color:#c4b5fd;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.3);border-radius:999px;padding:6px 12px;cursor:pointer">What is SalesNova?</button>
+        <button onClick="{{ askSuggestion2 }}" style="font:500 11px 'JetBrains Mono',monospace;color:#c4b5fd;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.3);border-radius:999px;padding:6px 12px;cursor:pointer">Why hire Ruba?</button>
+        <button onClick="{{ askSuggestion3 }}" style="font:500 11px 'JetBrains Mono',monospace;color:#c4b5fd;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.3);border-radius:999px;padding:6px 12px;cursor:pointer">Her AI skills?</button>
+      </div>
+    </sc-if>
+    <div style="display:flex;gap:10px;padding:14px 18px;border-top:1px solid rgba(255,255,255,.07);flex:none">
+      <input data-chat-input value="{{ chatInput }}" onChange="{{ onChatInput }}" onKeyDown="{{ onChatKey }}" placeholder="Ask anything about Ruba's CV…" aria-label="Your question" style="flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:11px 14px;font:400 13px Inter,sans-serif;color:#fff;outline:none"></input>
+      <button onClick="{{ sendChat }}" aria-label="Send" style="background:#8b5cf6;border:none;border-radius:10px;padding:0 16px;cursor:pointer;font:600 15px Inter,sans-serif;color:#09090b">↑</button>
+    </div>
+  </div>
+</sc-if>
+<button onClick="{{ toggleChat }}" aria-label="Open AI assistant" style="position:fixed;bottom:28px;right:28px;z-index:60;display:flex;align-items:center;gap:9px;background:linear-gradient(135deg,#8b5cf6,#7c3aed);border:none;border-radius:999px;padding:14px 22px;cursor:pointer;font:600 13px Inter,sans-serif;color:#fff;box-shadow:0 8px 32px rgba(139,92,246,.45);transition:transform .2s ease,box-shadow .2s ease" style-hover="transform:translateY(-2px);box-shadow:0 12px 40px rgba(139,92,246,.6)">✦ Ask AI about me</button>
+
+<!-- ============ FOOTER ============ -->
+<div style="display:flex;justify-content:space-between;align-items:center;padding:26px 48px;border-top:1px solid rgba(255,255,255,.06)">
+  <div style="font:500 11.5px 'JetBrains Mono',monospace;color:rgba(255,255,255,.35)">© 2026 Ruba Almuziraee</div>
+  <div style="display:flex;gap:20px">
+    <a href="{{ linkedinUrl }}" target="_blank" rel="noopener" style="font:500 11.5px 'JetBrains Mono',monospace;color:rgba(255,255,255,.45)" style-hover="color:#c4b5fd">LinkedIn</a>
+    <a href="https://github.com/rubasalmuziraee" target="_blank" rel="noopener" style="font:500 11.5px 'JetBrains Mono',monospace;color:rgba(255,255,255,.45)" style-hover="color:#c4b5fd">GitHub</a>
+    <a href="mailto:rubasalmuziraee@gmail.com" style="font:500 11.5px 'JetBrains Mono',monospace;color:rgba(255,255,255,.45)" style-hover="color:#c4b5fd">Email</a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showAvailability&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Hero&quot;}, &quot;spotlight&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Effects&quot;}, &quot;linkedinUrl&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;https://www.linkedin.com/in/ruba-almuziraee-771420246&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Links&quot;}}">
+class Component extends DCLogic {
+  state = { chatOpen: false, chatInput: '', chatThinking: false, chatMessages: [] };
+
+  bubbleStyle(role) {
+    return role === 'user'
+      ? 'align-self:flex-end;margin-left:auto;max-width:85%;background:#8b5cf6;color:#0b0616;border-radius:14px 14px 4px 14px;padding:10px 14px;font:400 13px/1.6 Inter,sans-serif;white-space:pre-wrap'
+      : 'align-self:flex-start;max-width:85%;background:rgba(255,255,255,.06);color:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.08);border-radius:14px 14px 14px 4px;padding:10px 14px;font:400 13px/1.6 Inter,sans-serif;white-space:pre-wrap';
+  }
+
+  scrollChat() {
+    requestAnimationFrame(() => {
+      const el = document.querySelector('[data-chat-scroll]');
+      if (el) el.scrollTop = el.scrollHeight;
+    });
+  }
+
+  async ask(question) {
+    if (!question.trim() || this.state.chatThinking) return;
+    const msgs = [...this.state.chatMessages, { role: 'user', text: question.trim() }];
+    this.setState({ chatMessages: msgs, chatInput: '', chatThinking: true });
+    this.scrollChat();
+    try {
+      const history = msgs.map(m => ({ role: m.role === 'user' ? 'user' : 'assistant', content: m.text }));
+      const reply = await window.claude.complete({
+        system: 'You are the AI assistant on Ruba Almuziraee\'s portfolio website, answering questions from recruiters and visitors about her CV. Be warm, concise (2-4 sentences unless asked for detail), and factual — answer ONLY from the CV below. If asked something not in the CV, say you don\'t have that information and suggest emailing rubasalmuziraee@gmail.com. Never invent facts. Answer in the language the visitor uses (Arabic or English).\n\nCV:\n' + window.RUBA_CV,
+        messages: history,
+        max_tokens: 500,
+      });
+      this.setState({ chatMessages: [...msgs, { role: 'assistant', text: reply }], chatThinking: false });
+    } catch (e) {
+      this.setState({ chatMessages: [...msgs, { role: 'assistant', text: 'Sorry — I could not reach the AI service right now. Please try again in a moment, or email rubasalmuziraee@gmail.com.' }], chatThinking: false });
+    }
+    this.scrollChat();
+  }
+
+  renderVals() {
+    const withStyles = this.state.chatMessages.map(m => ({ ...m, bubbleStyle: this.bubbleStyle(m.role) }));
+    if (withStyles.length === 0) withStyles.push({ role: 'assistant', text: 'Hi! I\'m Ruba\'s AI assistant. Ask me anything about her experience, projects, or skills — in English or Arabic.', bubbleStyle: this.bubbleStyle('assistant') });
+    return {
+      chatOpen: this.state.chatOpen,
+      chatMessages: withStyles,
+      chatThinking: this.state.chatThinking,
+      chatInput: this.state.chatInput,
+      showSuggestions: this.state.chatMessages.length === 0 && !this.state.chatThinking,
+      toggleChat: () => this.setState(s => ({ chatOpen: !s.chatOpen })),
+      onChatInput: (e) => this.setState({ chatInput: e.target.value }),
+      onChatKey: (e) => { if (e.key === 'Enter') this.ask(this.state.chatInput); },
+      sendChat: () => this.ask(this.state.chatInput),
+      askSuggestion1: () => this.ask('What is SalesNova and how does it work?'),
+      askSuggestion2: () => this.ask('Why should we hire Ruba for an AI engineering role?'),
+      askSuggestion3: () => this.ask('What are her AI engineering skills?'),
+      showAvailability: this.props.showAvailability ?? true,
+      linkedinUrl: this.props.linkedinUrl ?? 'https://www.linkedin.com/in/ruba-almuziraee-771420246',
+      experience: [
+        { period: '2026', role: 'Agentic AI Engineer (Bootcamp)', company: 'Saudi Digital Academy · WeCloudData', type: 'Bootcamp', summary: 'Designed and shipped production-grade agentic AI systems — graduated with capstone SalesNova, an 8-agent AI CRM assistant built with LangGraph, RAG, and FastAPI.' },
+        { period: '2025 — 2026', role: 'Business Developer — MSB', company: 'Alrajhi Bank', type: 'Full Time', summary: 'SME financing with tailored digital solutions such as POS and invoice-based funding — coordinating internal teams and consistently hitting monthly sales targets. This is where I learned which busywork AI should kill.' },
+        { period: '2024 — 2025', role: 'Web Project Coordinator', company: 'Foody Food', type: 'Part Time', summary: 'Led coordination and partial development of a wholesale e-commerce website — defined requirements, resolved issues, ensured on-time delivery; still managing improvements with freelance developers.' },
+        { period: 'Summer 2023', role: 'IoT & Web Development Trainee', company: 'Smart Methods', type: 'Training', summary: 'Built a backend interface connecting web apps to ESP32 devices via APIs, an audio-to-text system, and a rule-based automation algorithm — collaborating on GitHub with real deadlines.' },
+        { period: '2018 — 2023', role: 'B.Sc. Information Technology — GPA 4.24 / 5', company: 'Qassim University', type: 'Education', summary: 'Graduated with distinction. Final-year research: AI-powered face detection for surveillance and biometric applications.' },
+      ],
+      projects: [
+        { slotId: 'proj-salesnova', placeholder: 'Drop dashboard screenshot', title: 'SalesNova — AI CRM Assistant', year: '2026', page: 'projects/sales-nova.dc.html', github: 'https://github.com/rubasalmuziraee/Sales-Nova', image: 'images/sales-nova.png',
+          problem: 'Sales teams lose hours a day typing conversations into CRMs instead of selling.',
+          solution: 'An 8-agent LangGraph pipeline that turns natural language into validated CRM updates, follow-ups, and insights — grounded by RAG over a sales knowledge base.',
+          impact: 'Removes manual CRM data entry; human-approval agent keeps every write safe.',
+          tech: ['Python', 'LangGraph', 'RAG', 'FastAPI', 'PostgreSQL', 'Docker'] },
+        { slotId: 'proj-portfolio', placeholder: 'Drop project screenshot', title: 'Portfolio Website', year: '2024', page: 'projects/portfolio-website.dc.html', github: 'https://github.com/rubasalmuziraee', image: 'images/portfolio-website.png',
+          problem: 'A resume PDF can\'t show engineering craft or design sensibility.',
+          solution: 'A React + Next.js portfolio with async section loading, client-side routing, and state-managed dark mode.',
+          impact: 'A living showcase of front-end patterns — and the site you\'re looking at grew from it.',
+          tech: ['React', 'Next.js', 'JavaScript'] },
+        { slotId: 'proj-face', placeholder: 'Drop project screenshot', title: 'Face Detection System', year: '2022 — 2023', page: 'projects/face-detection.dc.html', github: 'https://github.com/rubasalmuziraee', image: 'images/face-detection.png',
+          problem: 'Reliable face detection breaks down under real-world lighting, angles, and occlusion.',
+          solution: 'Final-year research applying AI and ML techniques to robust human face detection from images.',
+          impact: 'Applicable to access control, law enforcement, and personal safety systems.',
+          tech: ['Python', 'Computer Vision', 'Machine Learning'] },
+        { slotId: 'proj-wallet', placeholder: 'Drop project screenshot', title: 'Smart Wallet', year: '2022', page: 'projects/smart-wallet.dc.html', github: 'https://github.com/rubasalmuziraee', image: 'images/smart-wallet.png',
+          problem: 'People rarely see where their money actually goes each month.',
+          solution: 'Led a team building an Android app on Firebase that tracks spending and surfaces saving habits.',
+          impact: 'Gives users clear awareness of spending and better money management.',
+          tech: ['Android', 'Firebase', 'Cloud Computing'] },
+      ],
+      aiSkills: [
+        { num: '01', title: 'Large Language Models', desc: 'Building on frontier LLMs — prompt design, structured outputs, and evaluation.' },
+        { num: '02', title: 'Multi-Agent Systems', desc: 'Orchestrating specialized agents with LangGraph to decompose and solve complex tasks.' },
+        { num: '03', title: 'Retrieval-Augmented Generation', desc: 'RAG pipelines with FAISS and embeddings for grounded answers over private data.' },
+        { num: '04', title: 'Prompt Engineering', desc: 'Systematic prompt design, few-shot strategies, and iteration for reliable behavior.' },
+        { num: '05', title: 'AI Agents & Tool Use', desc: 'Agents that call real tools — CRM writes, database queries, validated actions.' },
+        { num: '06', title: 'Model Context Protocol', desc: 'Connecting models to external tools and data sources through the MCP standard.' },
+        { num: '07', title: 'Workflow Automation', desc: 'Rule-based and LLM-driven automation that removes manual busywork end to end.' },
+        { num: '08', title: 'Vector Databases', desc: 'Embeddings, similarity search, and retrieval tuning with FAISS and modern stores.' },
+        { num: '09', title: 'OpenAI APIs', desc: 'Production integrations — chat, embeddings, and function calling with cost control.' },
+      ],
+      skillGroups: [
+        { label: 'AI', items: ['LangChain', 'LangGraph', 'OpenAI', 'RAG', 'FAISS', 'MCP'] },
+        { label: 'FRONTEND', items: ['React', 'Next.js', 'JavaScript', 'TypeScript'] },
+        { label: 'BACKEND', items: ['Python', 'FastAPI', 'SQL'] },
+        { label: 'DATA & CLOUD', items: ['PostgreSQL', 'Firebase', 'Docker'] },
+        { label: 'TOOLS', items: ['Git', 'GitHub', 'Agile'] },
+      ],
+      credentials: [
+        { title: 'Agentic AI Bootcamp', org: 'Saudi Digital Academy · WeCloudData', year: '2026' },
+        { title: 'B.Sc. Information Technology — GPA 4.24', org: 'Qassim University', year: '2018 — 2023' },
+        { title: 'React — The Complete Guide (61h)', org: 'Udemy', year: '2024' },
+        { title: 'Complete Web Development Bootcamp (61h)', org: 'Udemy', year: '2024' },
+        { title: 'Docker, From Zero To Hero (10h)', org: 'Udemy', year: '2023' },
+        { title: 'Cybersecurity Incident Analysis (65h)', org: 'Hemaya', year: '2022 — 2023' },
+      ],
+    };
+  }
+
+  componentDidMount() {
+    const root = document;
+    if (this.props.spotlight ?? true) {
+      this._onMove = (e) => {
+        const el = root.querySelector('[data-spotlight]');
+        if (el) el.style.background = `radial-gradient(560px circle at ${e.clientX}px ${e.clientY}px, rgba(139,92,246,.07), transparent 70%)`;
+      };
+      window.addEventListener('mousemove', this._onMove);
+    }
+    const revealEls = [...root.querySelectorAll('[data-reveal]')];
+    this._io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) {
+          en.target.style.opacity = '1';
+          en.target.style.transform = 'translateY(0)';
+          this._io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    revealEls.forEach((el) => {
+      const r = el.getBoundingClientRect();
+      if (r.top > window.innerHeight * 0.9) {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(28px)';
+        el.style.transition = 'opacity .7s ease, transform .7s ease';
+        this._io.observe(el);
+      }
+    });
+    this._counterIo = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (!en.isIntersecting) return;
+        const el = en.target;
+        this._counterIo.unobserve(el);
+        const target = parseFloat(el.dataset.counter);
+        const decimals = parseInt(el.dataset.decimals || '0', 10);
+        const t0 = performance.now();
+        const dur = 1400;
+        const tick = (t) => {
+          const p = Math.min(1, (t - t0) / dur);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = (target * eased).toFixed(decimals);
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      });
+    }, { threshold: 0.5 });
+    root.querySelectorAll('[data-counter]').forEach((el) => this._counterIo.observe(el));
+    root.querySelectorAll('[data-magnetic]').forEach((btn) => {
+      btn.addEventListener('mousemove', (e) => {
+        const r = btn.getBoundingClientRect();
+        const dx = (e.clientX - r.left - r.width / 2) * 0.18;
+        const dy = (e.clientY - r.top - r.height / 2) * 0.3;
+        btn.style.transform = `translate(${dx}px, ${dy}px)`;
+      });
+      btn.addEventListener('mouseleave', () => { btn.style.transform = 'translate(0,0)'; });
+    });
+  }
+
+  componentWillUnmount() {
+    if (this._onMove) window.removeEventListener('mousemove', this._onMove);
+    if (this._io) this._io.disconnect();
+    if (this._counterIo) this._counterIo.disconnect();
+  }
+}
+</script>
+</body>
+</html>
